@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rbtsni. Photography</title>
+
+    <style>
+        /* =========================
+           RESET
+        ========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0e0e0e;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(14, 14, 14, 0.75);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+             display:flex;
+            align-items:center;
+             gap:12px;
+        }
+
+        .nav-logo {
+            width:40px;
+            height:40px;
+            object-fit:contain;
+        }
+
+        .logo-text {
+            font-size:24px;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+        .logo-text span {
+            font-weight:normal;
+            font-size:12px;
+            letter-spacing:3px;
+            display:block;
+            color:#aaa;
+        }
+
+        .logo span {
+            font-weight: normal;
+            font-size: 12px;
+            letter-spacing: 3px;
+            display: block;
+            color: #aaa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            color: #ddd;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+        .hero {
+
+            min-height:100vh;
+
+            display:flex;
+
+            align-items:center;
+
+            padding:120px 8% 80px;
+
+            position:relative;
+
+            overflow:hidden;
+
+            background:#050505;
+            
+        }
+
+        .hero-logo {
+
+            position:absolute;
+
+            width:650px;
+
+            right:12%;
+            left:40%;
+
+            top:50%;
+
+            transform:
+            translateY(-50%);
+
+            opacity:0.18;
+
+            filter:
+            blur(0px);
+
+            z-index:1;
+
+            transition:
+            transform .15s ease-out;
+
+            pointer-events:none;
+        }
+
+        .hero::before {
+          content:"";
+            position:absolute;
+            inset:0;
+            background-image:
+            url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity:0.12;
+            mix-blend-mode:overlay;
+            animation:grainMove .3s steps(2) infinite;
+            pointer-events:none;
+            z-index:1;
+
+        }
+
+
+        @keyframes grainMove {
+
+            0%{
+                transform:translate(0,0);
+            }
+
+            25%{
+                transform:translate(-5%,5%);
+            }
+
+            50%{
+                transform:translate(5%,-5%);
+            }
+
+            75%{
+                transform:translate(-5%,-5%);
+            }
+
+        }
+
+        .hero::after {
+            content:"";
+            position:absolute;
+            width:600px;
+            height:600px;
+            z-index:1;
+            background:
+            radial-gradient(
+                circle,
+                rgba(255,255,255,0.12),
+                transparent 70%
+            );
+
+            top:-200px;
+            right:-150px;
+            filter:blur(60px);
+            animation:
+            floatingLight 12s infinite alternate;
+            pointer-events:none;
+        }
+
+        .hero-content {
+            max-width:700px;
+            position:relative;
+            z-index:2;
+            animation:fadeUp 1.2s ease forwards;
+
+        }
+
+        .hero small {
+            letter-spacing: 5px;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(55px, 9vw, 110px);
+            line-height: 0.95;
+            margin: 20px 0;
+            letter-spacing: -4px;
+        }
+
+        .hero p {
+            max-width: 550px;
+            color: #ccc;
+            font-size: 17px;
+            margin-bottom: 35px;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border: 1px solid #fff;
+            border-radius: 50px;
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.04);
+            background: #fff;
+            color: #111;
+            box-shadow: 0 12px 30px rgba(255,255,255,0.18);
+        }
+
+        .btn:active {
+            transform: translateY(-3px) scale(0.98);
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================= */
+        section {
+            padding: 110px 8%;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        .section-title small {
+            color: #888;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 45px;
+            margin-top: 10px;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .about-text p {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        /* =========================
+           PORTFOLIO
+        ========================= */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0,0,0,0.85)
+                );
+
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            transform: translateY(20px);
+            transition: 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay h3 {
+            transform: translateY(0);
+        }
+
+        /* =========================
+           SERVICES
+        ========================= */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            padding: 40px 30px;
+            border: 1px solid #292929;
+            transition: 0.35s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: #777;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .service-card p {
+            color: #999;
+            margin-bottom: 25px;
+        }
+
+        .price {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           CONTACT
+        ========================= */
+        .contact {
+            text-align: center;
+            background: #151515;
+        }
+
+        .contact h2 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .contact-logo {
+            width:120px;
+            margin-top:0px;
+            margin-bottom:10px;
+            opacity:0.85;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+        footer {
+            padding: 30px 8%;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* =========================
+           ANIMATION
+        ========================= */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroZoom {
+
+            from {
+                background-size:100%;
+            }
+
+            to {
+                background-size:115%;
+            }
+
+        }
+
+
+@keyframes floatingLight {
+
+    from {
+        transform:translate(0,0);
+    }
+
+    to {
+        transform:translate(-150px,120px);
+    }
+
+}
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            section {
+                padding: 80px 6%;
+            }
+
+            .hero {
+                padding: 120px 6% 80px;
+            }
+
+            .hero h1 {
+                font-size: 60px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item {
+                height: 450px;
+            }
+
+            .contact h2 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+
+            <img src="rblogo.png" class="nav-logo">
+
+            <div class="logo-text">
+                Rbtsni.
+                <span>PHOTOGRAPHY</span>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <img src="RB_logo.png" class="hero-logo">
+
+        <div class="hero-content">
+
+            <small>Photography & Visual Storytelling</small>
+
+            <h1>
+                Moments<br>
+                Become<br>
+                Memories.
+            </h1>
+
+            <p>
+                Capturing honest moments, emotions,
+                and stories through timeless photography.
+            </p>
+
+            <a href="#portfolio" class="btn">
+                View Portfolio
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about">
+
+        <div class="section-title">
+            <small>About Me</small>
+            <h2>The person behind the camera.</h2>
+        </div>
+
+        <div class="about">
+
+            
+        <div class="about-image">
+            <a href="https://www.instagram.com/rbtsani/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn instagram-btn">
+                Visit My Instagram ↗
+            </a>
+        </div>
+
+            <div class="about-text">
+
+                <p>
+                    Hi, I'm Rabtsani, a photographer who loves
+                    capturing genuine moments and turning them
+                    into visual stories.
+                </p>
+
+                <p>
+                    From intimate portraits to events and
+                    pre-wedding sessions, I believe that every
+                    photograph has its own story.
+                </p>
+
+                <a href="#contact" class="btn">
+                    Let's Work Together
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+
+        <div class="section-title">
+            <small>Selected Works</small>
+            <h2>Portfolio.</h2>
+        </div>
+
+        <div class="portfolio-grid">
+
+            <div class="portfolio-item">
+                <img src="Potrait.jpeg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Portrait</h3>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <img src="Prewedd.jpg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Pre-Wedding</h3>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <img src="Event.jpg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Event</h3>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <img src="Couple.jpeg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Couple</h3>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <img src="Street.jpg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Street</h3>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <img src="Wedding.jpg" alt="Portfolio">
+                <div class="portfolio-overlay">
+                    <h3>Wedding</h3>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section id="services">
+
+        <div class="section-title">
+            <small>What I Offer</small>
+            <h2>Services.</h2>
+        </div>
+
+        <div class="services">
+
+            <div class="service-card">
+
+                <h3>Portrait</h3>
+
+                <p>
+                    Personal portrait session with
+                    a cinematic and natural approach.
+                </p>
+
+                <div class="price">
+                    Rp500K
+                </div>
+
+                <a href="https://wa.me/6289671345449"
+                    target="_blank" class="btn">
+                    Book Now
+                </a>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <h3>Pre-Wedding</h3>
+
+                <p>
+                    Capture your story before the
+                    big day with a personal concept.
+                </p>
+
+                <div class="price">
+                    Rp1.3M
+                </div>
+
+                <a href="https://wa.me/6289671345449"
+                    target="_blank" class="btn">
+                    Book Now
+                </a>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <h3>Event</h3>
+
+                <p>
+                    Documentation for birthdays,
+                    gatherings, events and more.
+                </p>
+
+                <div class="price">
+                    Rp750K
+                </div>
+
+                <a href="https://wa.me/6289671345449"
+                    target="_blank" class="btn">
+                    Book Now
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+
+        <img src="RB_logo.png" class="contact-logo">
+
+        <h2>Let's create something.</h2>
+
+        <p>
+            Have an idea or need a photographer?
+            Let's talk about your project.
+        </p>
+
+        <a
+            href="https://wa.me/6289671345449"
+            target="_blank"
+            class="btn"
+        >
+            Contact Me
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        © 2026 Rbtsni. Photography.
+        All Rights Reserved.
+
+    </footer>
+
+    <script>
+
+    const logo = document.querySelector(".hero-logo");
+
+
+    document.addEventListener("mousemove", (e)=>{
+
+        let x =
+        (window.innerWidth / 2 - e.clientX) / 40;
+
+
+        let y =
+        (window.innerHeight / 2 - e.clientY) / 40;
+
+
+        logo.style.transform =
+        `
+        translateY(-50%)
+        perspective(900px)
+        rotateY(${x}deg)
+        rotateX(${y}deg)
+        `;
+
+    });
+
+
+    </script>
+
+</body>
+</html>
